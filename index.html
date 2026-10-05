@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aditi vs Shubham — 60 Day Challenge</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff7f9;--card:#fff;--tx:#2a1a22;--mu:#7a6670;--pk:#e0457b;--bl:#3b82f6;--ok:#1fa971;--ln:#f1d5df}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120a10;--card:#21131b;--tx:#f7e9ef;--mu:#b79aa8;--ln:#3a2330}}
+:root[data-theme="dark"]{--bg:#120a10;--card:#21131b;--tx:#f7e9ef;--mu:#b79aa8;--ln:#3a2330}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45;padding:14px;max-width:720px;margin-inline:auto}
+h1{font-size:22px;margin:2px 0;text-align:center}h2{font-size:17px;margin:22px 0 8px}.mu{color:var(--mu);font-size:13px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:14px;margin:10px 0}
+.vs{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}
+.pl{flex:1;text-align:center;border-radius:16px;padding:12px 6px;border:2px solid var(--ln);background:var(--card);transition:.4s}
+.pl.lead{transform:scale(1.05);box-shadow:0 0 22px rgba(255,190,40,.55);border-color:#f5b300}
+.pl b{font-size:26px;display:block}.pl .n{font-weight:700}.pl .cr{height:22px;font-size:18px}
+.vsb{font-weight:900;font-size:20px;color:var(--mu);animation:pu 1.4s infinite}
+@keyframes pu{50%{transform:scale(1.25)}}
+#banner{text-align:center;font-weight:700;margin:6px 0}
+.track{position:relative;height:46px;margin:12px 0;border-radius:23px;background:var(--ln);overflow:hidden}
+.track:after{content:"🏁";position:absolute;right:8px;top:9px}
+.fill{position:absolute;left:0;top:0;height:100%;border-radius:23px;transition:width 1s cubic-bezier(.2,.9,.3,1.2);opacity:.35}
+.run{position:absolute;top:6px;font-size:26px;transition:left 1s cubic-bezier(.2,.9,.3,1.2);animation:bo .5s infinite alternate}
+@keyframes bo{to{transform:translateY(-4px)}}
+.tabs{display:flex;gap:6px;margin:10px 0}.tabs button{flex:1;padding:9px;border-radius:12px;border:1px solid var(--ln);background:var(--card);color:var(--tx);font-weight:700}
+.tabs button.on{background:var(--tc);color:#fff;border-color:var(--tc)}
+.wake{width:100%;padding:16px;font-size:17px;font-weight:800;border:0;border-radius:16px;color:#fff;background:#999}
+.wake.ready{background:linear-gradient(135deg,#ff9800,#ff3d71);animation:pu 1s infinite}
+.wake.got{background:var(--ok)}
+.clock{font-size:34px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.d{aspect-ratio:1;border-radius:8px;border:1px solid var(--ln);background:var(--card);font-size:11px;color:var(--mu);display:flex;align-items:center;justify-content:center;padding:0}
+.d.on{background:var(--ok);color:#fff;border-color:var(--ok)}.d.rest{border-style:dashed;background:transparent}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:8px}.b{border:1px dashed var(--ln);border-radius:12px;padding:8px;font-size:13px;opacity:.4}.b.on{opacity:1;border:1px solid #f5b300;background:rgba(245,179,0,.12)}.b em{font-style:normal;font-size:22px;display:block}
+details{background:var(--card);border:1px solid var(--ln);border-radius:14px;margin:8px 0;padding:10px 12px}summary{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}td,th{padding:5px 4px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top}th{color:var(--mu)}
+.svgw{overflow-x:auto}svg{width:100%;height:auto;display:block}ul{padding-left:18px;margin:6px 0}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:9}
+button.r{background:none;border:1px solid var(--ln);color:var(--mu);border-radius:10px;padding:6px 10px;font-size:12px}
+</style></head><body>
+<canvas id="cf"></canvas>
+<h1>⚔️ 60-Day Challenge</h1>
+<div class="mu" style="text-align:center">Workout + 5:15 AM wake-up • winner = most points</div><div class="mu" style="text-align:center" id="sync"></div>
+
+<div class="vs"><div class="pl" id="pa"><div class="cr"></div><div class="n" style="color:var(--pk)">Aditi</div><b id="ta">0</b><span class="mu" id="sa"></span></div><div class="vsb">VS</div><div class="pl" id="pb"><div class="cr"></div><div class="n" style="color:var(--bl)">Shubham</div><b id="tb">0</b><span class="mu" id="sb"></span></div></div>
+<div id="banner"></div>
+<div class="track"><div class="fill" id="fa" style="background:var(--pk)"></div><div class="fill" id="fb" style="background:var(--bl);height:50%;top:50%"></div><div class="run" id="ra" style="left:0">🏃‍♀️</div><div class="run" id="rb" style="left:0;animation-delay:.25s">🏃‍♂️</div></div>
+<div class="mu" style="text-align:center">Fair scoring: a perfect workout plan = 440 pts (scaled to each own plan) • 5:15 wake-up = 5 each • +30 at every 10% of your plan done • max 1040</div>
+
+<h2>🧑 I am…</h2>
+<div class="tabs" id="who"><button data-p="aditi" style="--tc:var(--pk)">Aditi</button><button data-p="shubham" style="--tc:var(--bl)">Shubham</button></div>
+
+<div class="card"><div class="clock" id="clk">--:--:--</div>
+<div class="mu" style="text-align:center;margin-bottom:10px" id="wmsg"></div>
+<button class="wake" id="wk">⏰ 5:15 WAKE-UP TICK</button></div>
+
+<h2>✅ Workout Tracker <span class="mu" id="who2"></span></h2>
+<div class="card"><div class="grid" id="grid"></div>
+<p class="mu" id="gn"></p></div>
+
+<h2>🏆 Badges</h2><div class="badges" id="badges"></div>
+
+<h2>📈 Race Graph</h2>
+<div class="card"><div class="mu">Points after each day: <span style="color:var(--pk)">Aditi</span> vs <span style="color:var(--bl)">Shubham</span></div><div class="svgw" id="c1"></div></div>
+
+<h2>🗓 Plans</h2>
+<div class="tabs" id="ptab"><button data-p="aditi" style="--tc:var(--pk)" class="on">Aditi's plan</button><button data-p="shubham" style="--tc:var(--bl)">Shubham's plan</button></div>
+<div id="plan"></div>
+
+<div class="card mu"><b>Fair play:</b> wake tick works only when the phone clock shows exactly 5:15 (keep the page open and tap within that minute). Sleep by 9:30 PM so 5:15 is easy — 8+ hours of sleep is part of winning. Scores sync live through the online database, so both phones always show the same leaderboard.</div>
+<button class="r" id="rst">Reset my progress</button>
+
+<script>
+// ====== SETUP: paste your Firebase Realtime Database URL below (no trailing slash) ======
+var DB_URL="https://challenge60-167ac-default-rtdb.asia-southeast1.firebasedatabase.app"; // e.g. https://my-challenge-default-rtdb.firebaseio.com
+var ADITI=[
+["Day 1 • Upper Push",[["Push-ups (ladder)","Phase variation"],["DB overhead press","3 sec down"],["DB floor press","Elbows 45°"],["DB overhead triceps ext.","Elbows tight"],["Pike push-ups","Hips high"],["Plank shoulder taps","30-40s"]]],
+["Day 2 • Lower (Quad+Glute)",[["Goblet squat","DB at chest"],["Reverse lunge","Each leg"],["DB glute bridge","Squeeze 1s"],["Sumo squat","DB between legs"],["Wall sit","30-45s"],["Calf raises","Slow"]]],
+["Day 3 • Upper Pull + Core",[["One-arm DB row","Chair support"],["Bent-over rear fly","Light DB"],["DB biceps curl","No swing"],["Prone Y-T-W","Floor"],["Superman hold","2s"],["Dead bug","Back flat"]]],
+["Day 4 • Lower (Hamstring+Glute)",[["DB Romanian deadlift","Flat back"],["Bulgarian split squat","Foot on chair"],["Single-leg bridge","Each leg"],["Step-ups","Sturdy chair"],["Side-lying leg raise","Each side"],["Glute kickbacks","All fours"]]],
+["Day 5 • Upper Mix",[["Push-ups (ladder)","Quality reps"],["One-arm DB row","Each arm"],["DB lateral raise","Light"],["Hammer curl","Neutral grip"],["Chair dips","Bend knees"],["Plank","30-60s"]]]];
+var SHUB=[
+["Day 1 • Chest + Shoulder",["Push-up variations: normal, decline, wide, pike, diamond","Triceps dips using bed — 20×3","Lateral raises — 3×15-20"]],
+["Day 2 • Back + V-shape",["Back pull rows — 15×4","Bicep curl — 15×3","Superman hold — 20×3","Reverse snow angels — 20×3","Towel rows on bed — 12×3"]],
+["Day 3 • Legs + Abs",["Squats — 4×20","Jump squats — 3×10","Lunges — 3×12 each leg","Wall sit — 3×40 sec","Leg raises — 3×12","Plank — 3×40 sec","Bicycle crunch — 3×20"]],
+["Day 4 • Forearms + Arms",["Brick side curl — 4×20-25","Biceps curl (forearm focus) — 4×20","Back-of-hand curl — 4×20","Close-grip push-ups","Brick push-ups — 3×15-20","Fist push-ups — 3×12-20","Reverse curl — 3×15-20"]],
+["Day 5 • Chest + Arms",["Push-ups: decline, explosive, pike, shoulder tap, archer, knuckle","Reverse wrist push-ups","Arm extension up & down — 3×15","Lateral arm raise — 3×15","Arm curl on bed — 3×15"]],
+["Day 6 • Back + Abs (draft)",["Reverse snow angels — 3×20","Superman hold — 3×20","Towel rows on bed — 3×12","Dead bug — 3×12","Leg raises — 3×12","Plank — 3×40 sec"]]];
+var BAD=[[3,"🔥","Spark"],[7,"⚡","Week Warrior"],[14,"💎","Fortnight Fire"],[21,"🌸","Habit Formed"],[30,"🏅","Halfway Hero"],[44,"👑","All Workouts Done"]];
+var NAMES={aditi:"Aditi",shubham:"Shubham"},S={aditi:{w:{},u:{}},shubham:{w:{},u:{}}},me=null,db=null,store=null,planTab="aditi";
+try{store=window.localStorage}catch(e){}
+try{var l=JSON.parse(store.getItem("c60")||"null");if(l){S=l.S||S;me=l.me||null}}catch(e){}
+function loc(){try{store.setItem("c60",JSON.stringify({S:S,me:me}))}catch(e){}}
+function isRest(n){var m=n%7;return m==4||m==0}
+function isExtra(n,p){return p=="shubham"&&n%7==4}
+function train(p){var c=0;for(var n=1;n<=60;n++)if(!isRest(n)&&!isExtra(n,p))c++;return c}
+function cw(p){var c=0;for(var k in S[p].w)if(!isRest(+k)&&!isExtra(+k,p))c++;return c}
+function ds(d){var x=d||new Date();return x.getFullYear()+"-"+("0"+(x.getMonth()+1)).slice(-2)+"-"+("0"+x.getDate()).slice(-2)}
+function wakeStreakBonus(u){var k=Object.keys(u).sort(),c=0,run=0,prev=null,b=0;k.forEach(function(s){var d=new Date(s+"T00:00:00");if(prev&&Math.round((d-prev)/864e5)==1)run++;else run=1;prev=d;if(run%7==0)b+=30});return b}
+function pts(p){var wc=cw(p),uc=Object.keys(S[p].u).length,tr=train(p);return {t:Math.round(wc*440/tr+uc*5+Math.floor(wc/tr*10)*30),wc:wc,uc:uc}}
+function setPlayer(p){me=p;loc();render()}
+var live=DB_URL.indexOf("http")==0,first=true;
+function norm(o){if(Array.isArray(o)){var r={};o.forEach(function(v,i){if(v)r[i]=1});return r}return o||{}}
+function setSync(ok){document.getElementById("sync").textContent=!live?"⚪ Offline mode (DB_URL not set)":ok?"🟢 Live sync ON":"🟠 Sync problem — retrying"}
+function push(){if(!live||!me)return;fetch(DB_URL+"/players/"+me+".json",{method:"PUT",body:JSON.stringify(S[me])}).then(function(r){setSync(r.ok)}).catch(function(){setSync(false)})}
+function persist(){loc();push()}
+function pull(){if(!live)return;["aditi","shubham"].forEach(function(p){fetch(DB_URL+"/players/"+p+".json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){setSync(true);
+if(d){var nw=norm(d.w),nu=norm(d.u);if(p!=me||(first&&!Object.keys(S[p].w).length&&!Object.keys(S[p].u).length)){S[p]={w:nw,u:nu};loc();render()}}
+else if(p==me&&first)push();
+if(p==me)first=false}).catch(function(){setSync(false)})})}
+function render(){
+var A=pts("aditi"),B=pts("shubham");
+document.getElementById("ta").textContent=A.t;document.getElementById("tb").textContent=B.t;
+document.getElementById("sa").textContent=A.wc+" 💪 "+A.uc+" ⏰";document.getElementById("sb").textContent=B.wc+" 💪 "+B.uc+" ⏰";
+var la=A.t>B.t,lb=B.t>A.t;
+document.getElementById("pa").className="pl"+(la?" lead":"");document.getElementById("pb").className="pl"+(lb?" lead":"");
+document.querySelector("#pa .cr").textContent=la?"👑":"";document.querySelector("#pb .cr").textContent=lb?"👑":"";
+var df=Math.abs(A.t-B.t);document.getElementById("banner").textContent=df==0?"🤝 Dead heat! Who breaks it first?":(la?"Aditi":"Shubham")+" leads by "+df+" pts"+(df>50?" 🔥":" — chase!");
+var pa=Math.min(A.t/1040,1),pb=Math.min(B.t/1040,1);
+document.getElementById("fa").style.width=(pa*100)+"%";document.getElementById("fb").style.width=(pb*100)+"%";
+document.getElementById("ra").style.left="calc("+(pa*100)+"% - "+(pa*34)+"px)";document.getElementById("rb").style.left="calc("+(pb*100)+"% - "+(pb*34)+"px)";
+[].forEach.call(document.querySelectorAll("#who button"),function(b){b.className=b.dataset.p==me?"on":""});
+document.getElementById("who2").textContent=me?"— "+NAMES[me]:"";
+var gp=me||"aditi";document.getElementById("gn").textContent="Tap the day when done. Rest days (😴): Thursday & Sunday"+(gp=="shubham"?" — for Shubham only Sunday is rest, Thursday ★ is just one extra day (0 XP)":"")+". Day 1 = Monday. "+train(gp)+" scoring workout days (same for both).";var g=document.getElementById("grid");g.innerHTML="";
+for(var n=1;n<=60;n++){var b=document.createElement("button");b.className="d";
+if(isRest(n)&&!isExtra(n,gp)){b.className+=" rest";b.textContent="😴"}else{b.textContent=isExtra(n,gp)?n+"★":n;if(isExtra(n,gp))b.style.borderStyle="dashed";if(me&&S[me].w[n])b.className+=" on";
+(function(k){b.onclick=function(){if(!me){alert("Pehle upar select karo: Aditi ya Shubham");return}
+if(S[me].w[k])delete S[me].w[k];else{S[me].w[k]=1;boom()}persist();render()}})(n)}
+g.appendChild(b)}
+var cnt=me?pts(me).wc:0,tr=me?train(me):44,bd=document.getElementById("badges");bd.innerHTML="";
+BAD.forEach(function(x){var d=document.createElement("div");var th=x[0]==44?tr:x[0];d.className="b"+(cnt>=th?" on":"");d.innerHTML="<em>"+x[1]+"</em><b>"+x[2]+"</b><br>"+th+" workouts";bd.appendChild(d)});
+chart();wakeUI()}
+function series(p){var o=[],w=0,u=0;for(var n=1;n<=60;n++){if(!isRest(n)&&!isExtra(n,p)&&S[p].w[n])w++;o.push(w*440/train(p))}return o}
+function chart(){var W=640,H=210,l=34,r=8,t=10,bt=26,pw=W-l-r,ph=H-t-bt;
+var a=series("aditi"),b=series("shubham"),mx=Math.max(100,a[59],b[59]);
+function X(d){return l+(d)/59*pw}function Y(v){return t+ph-v/mx*ph}
+function P(s){return "M"+s.map(function(v,i){return X(i)+" "+Y(v)}).join("L")}
+var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Race graph">';
+for(var i=0;i<=4;i++){var v=mx*i/4;s+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--ln)"/><text x="3" y="'+(Y(v)+4)+'" font-size="10" fill="var(--mu)">'+Math.round(v)+'</text>'}
+[0,15,30,45,59].forEach(function(d){s+='<text x="'+X(d)+'" y="'+(H-8)+'" font-size="10" text-anchor="middle" fill="var(--mu)">D'+(d+1)+'</text>'});
+s+='<path d="'+P(a)+'" fill="none" stroke="var(--pk)" stroke-width="3"/><path d="'+P(b)+'" fill="none" stroke="var(--bl)" stroke-width="3"/></svg>';
+document.getElementById("c1").innerHTML=s}
+function wakeUI(){var d=new Date(),hh=d.getHours(),mm=d.getMinutes(),ss=d.getSeconds();
+document.getElementById("clk").textContent=("0"+hh).slice(-2)+":"+("0"+mm).slice(-2)+":"+("0"+ss).slice(-2);
+var btn=document.getElementById("wk"),ok=hh==5&&mm==15,got=me&&S[me].u[ds()];
+btn.className="wake"+(got?" got":ok&&me?" ready":"");
+btn.textContent=got?"✅ Wake-up done today! +5":ok?"⏰ TAP NOW! 5:15":"🔒 Unlocks at exactly 5:15 AM";
+var m="";if(!me)m="Select who you are first";else if(!got&&!ok){var t=new Date(d);t.setHours(5,15,0,0);if(t<=d)t.setDate(t.getDate()+1);var ms=t-d,h=Math.floor(ms/36e5),mi=Math.floor(ms%36e5/6e4);m="Next window in "+h+"h "+mi+"m"}
+document.getElementById("wmsg").textContent=m}
+document.getElementById("wk").onclick=function(){var d=new Date();if(!me||d.getHours()!=5||d.getMinutes()!=15||S[me].u[ds()])return;S[me].u[ds()]=1;boom();persist();render()};
+setInterval(wakeUI,1000);
+[].forEach.call(document.querySelectorAll("#who button"),function(b){b.onclick=function(){setPlayer(b.dataset.p)}});
+[].forEach.call(document.querySelectorAll("#ptab button"),function(b){b.onclick=function(){planTab=b.dataset.p;[].forEach.call(document.querySelectorAll("#ptab button"),function(x){x.className=x.dataset.p==planTab?"on":""});plan()}});
+function plan(){var h="";
+if(planTab=="shubham"){h='<div class="card"><b>🤜 Hand gripper — daily, no matter what</b><br>20+ sets, 3–4 times a day. On the last rep of every set, squeeze the gripper tight. Sunday = Rest (just squeeze the gripper). Thursday ★ = one extra day, no XP.</div><div class="card"><b>📈 Progression:</b> add +2 reps per set every week, and slow down the movement.</div>';
+SHUB.forEach(function(d){h+="<details><summary>"+d[0]+"</summary><ul>"+d[1].map(function(e){return "<li>"+e+"</li>"}).join("")+"</ul></details>"});
+h+='<p class="mu">Day 6 is a draft — change it anytime. Use Thursday ★ for the extra day (no XP).</p>'}
+else{h='<p class="mu">Every exercise: <b>4 sets × 12–15 reps</b>, rest 45–60s. Warm-up: 2 min march + arm circles + 10 squats.</p>';
+ADITI.forEach(function(d){h+="<details><summary>"+d[0]+"</summary><table><tr><th>Exercise</th><th>Tip</th><th>Sets</th></tr>";
+d[1].forEach(function(e){var pk=/Plank|hold|Wall sit/i.test(e[0]);h+="<tr><td>"+e[0]+"</td><td class='mu'>"+e[1]+"</td><td>"+(pk?"4×30-60s":"4×12-15")+"</td></tr>"});h+="</table></details>"});
+h+='<details><summary>🎯 Full push-up ladder</summary><ul><li>Days 1–14: half push-ups 4×12, 3-sec lowering</li><li>Days 15–28: incline (hands on bed/table) 4×12–15, lower the surface weekly</li><li>Days 29–42: negatives (lower in 5 sec) 4×6–8 + incline 2×15</li><li>Days 43–56: full push-ups 4×1–3, add 1 rep/week</li><li>Days 57–60: max test, target 5–10</li></ul></details>';
+h+='<details><summary>📈 Progressive overload</summary><ul><li>Double progression: all 4 sets at 12 → add reps to 15 → then make it harder and restart at 12</li><li>Days 1–14: 4×12, slow tempo. Days 15–28: 4×15, rest 45s</li><li>Days 29–42: single-leg/one-arm versions, 1-sec pause, 4×12</li><li>Days 43–56: slower 4-sec lowering, books in a backpack for squats/lunges/bridges, 4×12→15</li><li>Days 57–60: test week, compare with Day 1</li></ul></details>';
+h+='<details><summary>🧘 Daily 5-min stretch</summary><ul><li>Child\'s pose + deep breaths 45s</li><li>Cat-cow 40s</li><li>Doorway chest stretch 30s/side</li><li>Cross-body shoulder + triceps 20s/side each</li><li>Standing quad stretch 20s/leg</li><li>Seated hamstring fold 45s</li><li>Figure-4 glute stretch 10s/side + breathing</li></ul></details>'}
+document.getElementById("plan").innerHTML=h}
+var cv=document.getElementById("cf"),cx=cv.getContext("2d"),ps=[],run=false;
+function boom(){cv.width=innerWidth;cv.height=innerHeight;for(var i=0;i<90;i++)ps.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*14,vy:-Math.random()*14-3,c:"hsl("+Math.random()*360+",90%,60%)",l:70});if(!run){run=true;tick()}}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);ps=ps.filter(function(p){return p.l>0});ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.l--;cx.fillStyle=p.c;cx.fillRect(p.x,p.y,7,7)});if(ps.length)requestAnimationFrame(tick);else run=false}
+document.getElementById("rst").onclick=function(){if(me&&confirm("Reset "+NAMES[me]+"'s progress?")){S[me]={w:{},u:{}};persist();render()}};
+plan();render();
+setSync(true);pull();setInterval(pull,6000);document.addEventListener("visibilitychange",function(){if(!document.hidden)pull()});
+</script>
+</body></html>
