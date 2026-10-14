@@ -67,7 +67,7 @@ button.r{background:none;border:1px solid var(--ln);color:var(--mu);border-radiu
 <div class="tabs" id="ptab"><button data-p="aditi" style="--tc:var(--pk)" class="on">Aditi's plan</button><button data-p="shubham" style="--tc:var(--bl)">Shubham's plan</button></div>
 <div id="plan"></div>
 
-<div class="card mu"><b>Fair play:</b> wake tick works only when the phone clock shows exactly 5:15 (keep the page open and tap within that minute). Sleep by 9:30 PM so 5:15 is easy — 8+ hours of sleep is part of winning. Scores sync live through the online database, so both phones always show the same leaderboard.</div>
+<div class="card mu"><b>Fair play:</b> Shubham's wake tick works only when the phone clock shows exactly 5:15 (keep the page open and tap within that minute). Aditi's wake tick stays open from 5:15 AM till 9:00 AM. Sleep by 9:30 PM so 5:15 is easy — 8+ hours of sleep is part of winning. Scores sync live through the online database, so both phones always show the same leaderboard.</div>
 <button class="r" id="rst">Reset my progress</button>
 
 <script>
@@ -96,6 +96,8 @@ function isExtra(n,p){return p=="shubham"&&n%7==4}
 function train(p){var c=0;for(var n=1;n<=60;n++)if(!isRest(n)&&!isExtra(n,p))c++;return c}
 function cw(p){var c=0;for(var k in S[p].w)if(!isRest(+k)&&!isExtra(+k,p))c++;return c}
 function ds(d){var x=d||new Date();return x.getFullYear()+"-"+("0"+(x.getMonth()+1)).slice(-2)+"-"+("0"+x.getDate()).slice(-2)}
+// Wake-tick window: Aditi 5:15 AM to 9:00 AM, Shubham exactly 5:15
+function winOk(p,d){var t=d.getHours()*60+d.getMinutes();return p=="aditi"?(t>=315&&t<540):t==315}
 function wakeStreakBonus(u){var k=Object.keys(u).sort(),c=0,run=0,prev=null,b=0;k.forEach(function(s){var d=new Date(s+"T00:00:00");if(prev&&Math.round((d-prev)/864e5)==1)run++;else run=1;prev=d;if(run%7==0)b+=30});return b}
 function pts(p){var wc=cw(p),uc=Object.keys(S[p].u).length,tr=train(p);return {t:Math.round(wc*440/tr+uc*5+Math.floor(wc/tr*10)*30),wc:wc,uc:uc}}
 function setPlayer(p){me=p;loc();render()}
@@ -142,12 +144,13 @@ s+='<path d="'+P(a)+'" fill="none" stroke="var(--pk)" stroke-width="3"/><path d=
 document.getElementById("c1").innerHTML=s}
 function wakeUI(){var d=new Date(),hh=d.getHours(),mm=d.getMinutes(),ss=d.getSeconds();
 document.getElementById("clk").textContent=("0"+hh).slice(-2)+":"+("0"+mm).slice(-2)+":"+("0"+ss).slice(-2);
-var btn=document.getElementById("wk"),ok=hh==5&&mm==15,got=me&&S[me].u[ds()];
-btn.className="wake"+(got?" got":ok&&me?" ready":"");
-btn.textContent=got?"✅ Wake-up done today! +5":ok?"⏰ TAP NOW! 5:15":"🔒 Unlocks at exactly 5:15 AM";
+var btn=document.getElementById("wk"),ok=!!me&&winOk(me,d),got=me&&S[me].u[ds()];
+btn.className="wake"+(got?" got":ok?" ready":"");
+btn.textContent=got?"✅ Wake-up done today! +5":ok?(me=="aditi"?"⏰ 5:15 WAKE-UP — TAP NOW (open till 9:00 AM)":"⏰ TAP NOW! 5:15"):(me=="aditi"?"🔒 Opens at 5:15 AM (till 9:00 AM)":"🔒 Unlocks at exactly 5:15 AM");
 var m="";if(!me)m="Select who you are first";else if(!got&&!ok){var t=new Date(d);t.setHours(5,15,0,0);if(t<=d)t.setDate(t.getDate()+1);var ms=t-d,h=Math.floor(ms/36e5),mi=Math.floor(ms%36e5/6e4);m="Next window in "+h+"h "+mi+"m"}
+else if(ok&&!got&&me=="aditi"){var e=new Date(d);e.setHours(9,0,0,0);var r=Math.floor((e-d)/6e4);m="Window closes at 9:00 AM — "+Math.floor(r/60)+"h "+(r%60)+"m left"}
 document.getElementById("wmsg").textContent=m}
-document.getElementById("wk").onclick=function(){var d=new Date();if(!me||d.getHours()!=5||d.getMinutes()!=15||S[me].u[ds()])return;S[me].u[ds()]=1;boom();persist();render()};
+document.getElementById("wk").onclick=function(){var d=new Date();if(!me||!winOk(me,d)||S[me].u[ds()])return;S[me].u[ds()]=1;boom();persist();render()};
 setInterval(wakeUI,1000);
 [].forEach.call(document.querySelectorAll("#who button"),function(b){b.onclick=function(){setPlayer(b.dataset.p)}});
 [].forEach.call(document.querySelectorAll("#ptab button"),function(b){b.onclick=function(){planTab=b.dataset.p;[].forEach.call(document.querySelectorAll("#ptab button"),function(x){x.className=x.dataset.p==planTab?"on":""});plan()}});
